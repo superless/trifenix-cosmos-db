@@ -1,0 +1,53 @@
+trigger:
+    branches:
+      include:        
+        - hotfix/*
+  
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+
+ 
+    
+  - task: gitversion/setup@0
+    inputs:
+      versionSpec: '5.1'
+      includePrerelease: true
+    displayName : "Configurando gitversion"
+
+  - task: gitversion/execute@0
+    inputs:
+      useConfigFile: true
+      configFilePath: "deploy/gitConfig.yml" 
+    displayName: "generando la nueva versión"
+
+  - task: NodeTool@0    
+    inputs:
+      versionSpec: "10.x"
+      
+    displayName: "Install Node.js"
+    
+  
+ 
+      
+  - task: CmdLine@2
+    inputs:
+      script: '$(MajorMinorPatch)$(PreReleaseTagWithDash)'
+    displayName: "npm install"
+
+ 
+  
+ # - task: CopyFiles@2
+ #   inputs:
+ #     sourceFolder: "build"
+ #     contents: "**"
+ #     targetFolder: $(Build.ArtifactStagingDirectory)
+ #   displayName: "Copy Build"
+
+ # - task: PublishBuildArtifacts@1
+ #   inputs:
+ #     pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+ #     artifactName: drop
+ #     publishLocation: 'container'
+ #   displayName: "Publish npm artifact"
