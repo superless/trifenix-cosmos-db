@@ -21,6 +21,13 @@ steps:
     inputs:
       useConfigFile: false
     displayName: "generando la nueva versión"
+  - task: CmdLine@2
+    inputs:
+      script: |
+        echo $(NuGetVersion)
+        
+        echo Hello world
+    displayName: "comment"
   
   - task: DotNetCoreCLI@2
     inputs:
@@ -29,7 +36,9 @@ steps:
       feedsToUse: 'select'
       vstsFeed: '$(default-feed)'
 
-
+  
+    
+    
   - task: DotNetCoreCLI@2
     displayName: "dotnet pack"
     inputs:
