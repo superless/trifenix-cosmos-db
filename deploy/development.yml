@@ -24,7 +24,7 @@ steps:
   - task: CmdLine@2
     inputs:
       script: |
-        echo ${NuGetVersion}
+        echo $(NuGetVersion)
         
         echo Hello world
     displayName: "comment"
