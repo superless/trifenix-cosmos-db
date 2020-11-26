@@ -1,7 +1,7 @@
-mode: Mainline
-next-version: 1.0.0
+mode: ContinuousDelivery
 branches:
-  master:
+  main:
+    regex: ^master$|^main$
     tag: ''
   feature:
     tag: alpha
