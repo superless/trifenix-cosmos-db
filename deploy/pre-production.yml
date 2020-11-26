@@ -29,7 +29,7 @@ steps:
     versioningScheme: byBuildNumber
 
 
-  
+
   - task: DotNetCoreCLI@2
     displayName: 'dotnet pack' 
     inputs: 

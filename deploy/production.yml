@@ -1,7 +1,7 @@
 trigger:
     branches:
       include:        
-        - main
+        - master
   
 pool:
   vmImage: "ubuntu-latest"
@@ -28,8 +28,7 @@ steps:
       command: 'restore'
       projects: '**/*.csproj'
       feedsToUse: 'select'
-      vstsFeed: '$(default-feed)'
-      includeNuGetOrg: false 
+      vstsFeed: '$(default-feed)'      
       versioningScheme: byBuildNumber
 
 
