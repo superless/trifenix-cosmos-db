@@ -29,7 +29,6 @@ steps:
       packagesToPack: '**/trifenix-main.csproj'
       nobuild: true
       packDirectory: '$(Build.ArtifactStagingDirectory)'
-      versioningScheme: byEnvVar
       versionEnvVar: '${NuGetVersion}'
     
   
