@@ -7,8 +7,10 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
+variables: 
+  BuildConfiguration: 'release'
+  
 steps:
-
 
   - task: gitversion/setup@0
     inputs:
@@ -20,7 +22,6 @@ steps:
     inputs:
       useConfigFile: false
     displayName: "generando la nueva versión"
-  
   
   - task: DotNetCoreCLI@2
     inputs:
