@@ -7,6 +7,9 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
+variables: 
+  BuildConfiguration: 'release'
+  
 steps:
 
   - task: gitversion/setup@0
@@ -20,8 +23,7 @@ steps:
       useConfigFile: false
     displayName: "generando la nueva versión"
   
-  
-   - task: DotNetCoreCLI@2
+  - task: DotNetCoreCLI@2
     inputs:
       command: 'restore'
       projects: '**/*.csproj'
