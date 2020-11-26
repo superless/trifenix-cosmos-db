@@ -9,6 +9,7 @@ pool:
 
 steps:
 
+
   - task: gitversion/setup@0
     inputs:
       versionSpec: '5.1'
@@ -21,7 +22,7 @@ steps:
     displayName: "generando la nueva versión"
   
   
-   - task: DotNetCoreCLI@2
+  - task: DotNetCoreCLI@2
     inputs:
       command: 'restore'
       projects: '**/*.csproj'
