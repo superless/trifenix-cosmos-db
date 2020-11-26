@@ -35,14 +35,21 @@ steps:
 
 
 
-  - task: DotNetCoreCLI@2 
-    displayName: 'dotnet build' 
-    inputs: 
-      packagesToPack: '**/trifenix-main.csproj'      
-      packDirectory: '$(Build.ArtifactStagingDirectory)'
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(NuGetVersion)' 
-      versioningScheme: byBuildNumber
-
+- task: DotNetCoreCLI@2 
+  displayName: 'dotnet build' 
+  inputs: 
+    projects: '**/trifenix-main.csproj' 
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.NuGetVersion)' 
+    versioningScheme: byBuildNumber
+ 
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet pack' 
+  inputs: 
+    command: pack
+    packagesToPack: '**/trifenix-main.csproj' 
+    nobuild: true 
+    versioningScheme: byEnvVar 
+    versionEnvVar: NuGetVersion
 
   - task: PublishBuildArtifacts@1
     inputs:
