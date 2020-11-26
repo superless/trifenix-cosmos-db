@@ -1,5 +1,5 @@
 {
-	"name": "C# (.NET)",
+	"name": "nuget-cli-example",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": { 
