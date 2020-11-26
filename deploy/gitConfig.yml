@@ -2,7 +2,6 @@ mode: ContinuousDelivery
 next-version: 0.0.10
 branches:
   master:
-    regex: ^master$|^main$
     tag: ''
   feature:
     tag: alpha
