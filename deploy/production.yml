@@ -34,7 +34,7 @@ steps:
   - task: CmdLine@2
     inputs:
       script: 'echo $(MajorMinorPatch)'
-    displayName: "npm install"
+    displayName: "test"
 
 
  
