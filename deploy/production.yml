@@ -35,6 +35,7 @@ steps:
       packagesToPack: '**/trifenix-main.csproj'      
       packDirectory: '$(Build.ArtifactStagingDirectory)'
       versionEnvVar: '${NuGetVersion}'
+      versioningScheme: byEnvVar
 
   - task: PublishBuildArtifacts@1
     inputs:
