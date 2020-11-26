@@ -16,7 +16,8 @@ steps:
 
   - task: gitversion/execute@0
     inputs:
-      useConfigFile: false
+      useConfigFile: true
+      configFilePath: "deploy/gitConfig.yml" 
     displayName: "generando la nueva versión"
   
   - task: DotNetCoreCLI@2
