@@ -33,21 +33,12 @@ steps:
       versioningScheme: byBuildNumber
 
 
-
-
-  - task: DotNetCoreCLI@2 
-    displayName: 'dotnet build' 
-    inputs: 
-      projects: '**/trifenix-main.csproj' 
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(NuGetVersion)' 
-      versioningScheme: byBuildNumber
   
   - task: DotNetCoreCLI@2
     displayName: 'dotnet pack' 
     inputs: 
       command: pack
-      packagesToPack: '**/trifenix-main.csproj' 
-      nobuild: true 
+      packagesToPack: '**/trifenix-main.csproj'       
       arguments: '--configuration $(BuildConfiguration) /p:Version=$(NuGetVersion)' 
       versioningScheme: byEnvVar 
       versionEnvVar: NuGetVersion
