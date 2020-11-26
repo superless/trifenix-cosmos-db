@@ -37,29 +37,10 @@ steps:
       packagesToPack: '**/trifenix-main.csproj'      
       packDirectory: '$(Build.ArtifactStagingDirectory)'
       versionEnvVar: '${NuGetVersion}'
-    
-  
- 
-      
-  - task: CmdLine@2
+
+  - task: PublishBuildArtifacts@1
     inputs:
-      script: 'ls'
-      workingDirectory: '$(Build.ArtifactStagingDirectory)'
-    displayName: "test"
-
-
- 
-  
- # - task: CopyFiles@2
- #   inputs:
- #     sourceFolder: "build"
- #     contents: "**"
- #     targetFolder: $(Build.ArtifactStagingDirectory)
- #   displayName: "Copy Build"
-
- # - task: PublishBuildArtifacts@1
- #   inputs:
- #     pathtoPublish: "$(Build.ArtifactStagingDirectory)"
- #     artifactName: drop
- #     publishLocation: 'container'
- #   displayName: "Publish npm artifact"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+      artifactName: drop
+      publishLocation: 'container'
+    displayName: "publish nuget"
