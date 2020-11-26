@@ -21,31 +21,27 @@ steps:
     inputs:
       useConfigFile: false
     displayName: "generando la nueva versión"
-  - task: CmdLine@2
-    inputs:
-      script: |
-        echo $(NuGetVersion)
-        
-        echo Hello world
-    displayName: "comment"
   
-  - task: DotNetCoreCLI@2
+  
+   - task: DotNetCoreCLI@2
     inputs:
       command: 'restore'
       projects: '**/*.csproj'
       feedsToUse: 'select'
       vstsFeed: '$(default-feed)'
+      includeNuGetOrg: false 
+      versioningScheme: byBuildNumber
+
 
   
-    
-    
   - task: DotNetCoreCLI@2
-    displayName: "dotnet pack"
-    inputs:
-      command: 'pack'
-      packagesToPack: '**/trifenix-main.csproj'      
-      packDirectory: '$(Build.ArtifactStagingDirectory)'
-      versionEnvVar: '${NuGetVersion}'
+    displayName: 'dotnet pack' 
+    inputs: 
+      command: pack
+      packagesToPack: '**/trifenix-main.csproj'       
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(NuGetVersion)' 
+      versioningScheme: byEnvVar 
+      versionEnvVar: NuGetVersion
 
   - task: PublishBuildArtifacts@1
     inputs:
