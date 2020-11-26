@@ -29,7 +29,14 @@ steps:
       feedsToUse: 'select'
       vstsFeed: '$(default-feed)'
 
-
+  - task: CmdLine@2
+    inputs:
+      script: |
+        echo ${NuGetVersion}
+        
+        echo Hello world
+    
+    
   - task: DotNetCoreCLI@2
     displayName: "dotnet pack"
     inputs:
