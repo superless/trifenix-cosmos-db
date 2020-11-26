@@ -39,7 +39,7 @@ steps:
     displayName: 'dotnet build' 
     inputs: 
       projects: '**/trifenix-main.csproj' 
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.NuGetVersion)' 
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(NuGetVersion)' 
       versioningScheme: byBuildNumber
   
   - task: DotNetCoreCLI@2
