@@ -7,8 +7,6 @@ pool:
   vmImage: "ubuntu-latest"
 
 steps:
-
- 
     
   - task: gitversion/setup@0
     inputs:
