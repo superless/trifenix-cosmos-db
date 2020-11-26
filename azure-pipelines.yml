@@ -15,5 +15,5 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration)'
-    projects: 'CommonLib/CommonLib.csproj'
+    projects: ' **/*.csproj'
 
