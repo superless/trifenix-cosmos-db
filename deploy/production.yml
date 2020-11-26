@@ -34,8 +34,7 @@ steps:
     displayName: "dotnet pack"
     inputs:
       command: 'pack'
-      packagesToPack: '**/trifenix-main.csproj'
-      nobuild: true
+      packagesToPack: '**/trifenix-main.csproj'      
       packDirectory: '$(Build.ArtifactStagingDirectory)'
       versionEnvVar: '${NuGetVersion}'
     
