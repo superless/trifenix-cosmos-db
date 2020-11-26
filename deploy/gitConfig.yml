@@ -1,17 +1,13 @@
-mode: ContinuousDelivery
+mode: Mainline
 next-version: 0.0.10
 branches:
   master:
     tag: ''
   feature:
     tag: alpha
-  release:
-    tag: rc
   develop:
-    tag: beta
+    tag : beta
   
-
-
 ignore:
   sha: []
 merge-message-formats: {}
