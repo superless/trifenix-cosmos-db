@@ -10,10 +10,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+    projects: 'CommonLib/CommonLib.csproj'
 
-- script: |
-    dotnet
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
