@@ -6,6 +6,9 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
+variables: 
+  BuildConfiguration: 'release'
+  
 steps:
 
   - task: gitversion/setup@0
@@ -26,17 +29,18 @@ steps:
       projects: '**/*.csproj'
       feedsToUse: 'select'
       vstsFeed: '$(default-feed)'
+      includeNuGetOrg: false 
+      versioningScheme: byBuildNumber
 
 
-  - task: DotNetCoreCLI@2
-    displayName: "dotnet pack"
-    inputs:
-      command: 'pack'
-      packagesToPack: '**/trifenix-main.csproj'      
-      packDirectory: '$(Build.ArtifactStagingDirectory)'
-      versioningScheme: 'byEnvVar'
-      versionEnvVar: '0.1.0'
-      
+
+
+- task: DotNetCoreCLI@2 
+  displayName: 'dotnet build' 
+  inputs: 
+    projects: '$(Parameters.projects)' 
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(NuGetVersion)' 
+    versioningScheme: byBuildNumber
 
   - task: PublishBuildArtifacts@1
     inputs:
