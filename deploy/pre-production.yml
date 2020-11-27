@@ -40,9 +40,9 @@ steps:
     inputs: 
       command: pack
       packagesToPack: '**/trifenix-main.csproj'       
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(NuGetVersion)' 
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(SemVer)' 
       versioningScheme: byEnvVar 
-      versionEnvVar: NuGetVersion
+      versionEnvVar: SemVer
 
   - task: PublishBuildArtifacts@1
     inputs:
