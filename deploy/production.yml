@@ -7,6 +7,7 @@ pool:
 
 variables: 
   BuildConfiguration: 'release'
+  
 
 pr: none
   
