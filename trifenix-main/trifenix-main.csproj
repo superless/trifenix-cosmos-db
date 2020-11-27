@@ -13,7 +13,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Icon>logo.png</Icon>
+    <PackageIcon>logo.png</PackageIcon>
     <RootNamespace>trifenix_main</RootNamespace>
     <id>main.test</id>    
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
