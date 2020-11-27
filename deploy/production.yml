@@ -1,8 +1,7 @@
 trigger:
     branches:
       include:        
-        - master
-  
+        - master  
 pool:
   vmImage: "ubuntu-latest"
 
@@ -12,6 +11,7 @@ variables:
 pr: none
   
 steps:
+
 
   - task: gitversion/setup@0
     inputs:
