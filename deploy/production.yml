@@ -12,7 +12,6 @@ pr: none
   
 steps:
 
-
   - task: gitversion/setup@0
     inputs:
       versionSpec: '5.1'
