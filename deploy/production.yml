@@ -16,7 +16,7 @@ steps:
   - task: gitversion/setup@0
     inputs:
       versionSpec: '5.1'
-      includePrerelease: true
+      includePrerelease: false
     displayName : "Configurando gitversion"
 
   - task: gitversion/execute@0
