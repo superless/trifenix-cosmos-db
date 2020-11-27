@@ -6,6 +6,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+     <PackageIcon>logo.png</PackageIcon>
     <RootNamespace>trifenix_main</RootNamespace>
     <id>main.test</id>    
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -35,6 +36,7 @@
       <!-- Filter out unnecessary files -->
       <_ReferenceCopyLocalPaths
         Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))" />
+      <None Include="images\icon.png" Pack="true" PackagePath=""/>
     </ItemGroup>
 
     <!-- Print batches for debug purposes -->
