@@ -9,7 +9,7 @@
     <RootNamespace>trifenix_main</RootNamespace>
     <id>main.test</id>    
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <title>Main test</title>
+    <title>Libreria Main Trifenix</title>
     <authors>Trifenix</authors>
     <owners>trifenix</owners>
     <projectUrl>https://www.trifenix.io</projectUrl>
