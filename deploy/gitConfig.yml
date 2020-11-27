@@ -1,15 +1,2 @@
 mode: Mainline
 
-branches:
-  master:
-    tag: ''
-  feature:
-    tag: alpha
-  develop:
-    tag : beta
-  release:
-    tag: rc
-  
-ignore:
-  sha: []
-merge-message-formats: {}
