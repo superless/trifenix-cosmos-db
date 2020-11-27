@@ -8,7 +8,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>trifenix_main</RootNamespace>
     <id>main.test</id>
-    <version>0.0.7</version>
+    
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <title>Main test</title>
     <authors>Trifenix</authors>
