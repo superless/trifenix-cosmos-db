@@ -24,11 +24,11 @@
     <authors>Trifenix</authors>
     <owners>trifenix</owners>
     <projectUrl>https://www.trifenix.io</projectUrl>
-    <iconUrl>https://nuget-cli-example.trifenix.io</iconUrl>
+    <iconUrl>https://images.trifenix.io/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description> de ejemplo de integración continua con devops, docfx : https://nuget-cli-example.trifenix.io</description>
+    <description>ejemplo de integración continua con devops, docfx : https://nuget-cli-example.trifenix.io</description>
     <releaseNotes>Initial 0.0.1 release</releaseNotes>
-    <copyright>Copyright 2018 CompanyLtd</copyright>
+    <copyright>MIT Opern Source</copyright>
     <IsPackable>true</IsPackable>
     <tags>sample nuget</tags>
     <dependencies>
