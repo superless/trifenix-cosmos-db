@@ -32,7 +32,7 @@
           <dependency id="FontAwesome" version="4.7.0" />-->
     </dependencies>
     <PackageType>Dependency</PackageType>
-    <summary> Probando paquete </summary>
+    <summary> Paquete de ejemplo de integración continua con devops, docfx : https://nuget-cli-example.trifenix.io </summary>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
     </TargetsForTfmSpecificBuildOutput>
     <DocumentationFile>main.xml</DocumentationFile>
