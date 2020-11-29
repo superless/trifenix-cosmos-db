@@ -22,7 +22,7 @@
     <projectUrl>https://www.trifenix.io</projectUrl>
     <iconUrl>https://logos.trifenix.io/logo1.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Probado paquetes nuget</description>
+    <description> de ejemplo de integración continua con devops, docfx : https://nuget-cli-example.trifenix.io</description>
     <releaseNotes>Initial 0.0.1 release</releaseNotes>
     <copyright>Copyright 2018 CompanyLtd</copyright>
     <IsPackable>true</IsPackable>
