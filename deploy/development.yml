@@ -40,7 +40,7 @@ steps:
     displayName: 'dotnet pack' 
     inputs: 
       command: pack
-      packagesToPack: '**/trifenix-main.csproj'       
+      packagesToPack: '**/*.csproj'       
       arguments: '--configuration $(BuildConfiguration) /p:Version=$(SemVer)' 
       versioningScheme: byEnvVar 
       versionEnvVar: SemVer
