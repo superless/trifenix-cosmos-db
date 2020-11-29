@@ -13,12 +13,13 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
+    projects: '**/*.csproj'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '*.sln'
+    projects: '**/*.csproj'
   displayName: "build solution"
 - task: DocFxTask@0
   inputs:
