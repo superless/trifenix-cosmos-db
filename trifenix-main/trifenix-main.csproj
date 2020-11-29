@@ -6,7 +6,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    
     <None Include="images\logo.png" Pack="true" PackagePath=""/>
   </ItemGroup>
 
@@ -36,6 +35,7 @@
     <summary> Probando paquete </summary>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
     </TargetsForTfmSpecificBuildOutput>
+    <DocumentationFile>main.xml</DocumentationFile>
   </PropertyGroup>
 
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">

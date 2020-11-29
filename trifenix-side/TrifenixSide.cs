@@ -1,7 +1,8 @@
-﻿
-
-namespace trifenix.side
+﻿namespace trifenix.side
 {
+    /// <summary>
+    /// Ejemplo de clase referenciada desde un objeto nuget.
+    /// </summary>
     public class TrifenixSide
     {
         private const string Value = "some test method to side";
