@@ -12,6 +12,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>    
+    <PackageIcon>logo.png</PackageIcon>
     <Company>Trifenix</Company>
     <Product>Nuget Cli Example</Product>
     <PackageTags>trifenix nuget open-source education training</PackageTags>
