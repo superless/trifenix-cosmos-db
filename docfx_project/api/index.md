@@ -1,2 +1,3 @@
-# PLACEHOLDER
-TODO: Add .NET projects to the *src* folder and run `docfx` to generate **REAL** *API Documentation*!
+# Código fuente base para componentes nuget
+La documentación del código fuente representa un ejemplo de nuget.
+
