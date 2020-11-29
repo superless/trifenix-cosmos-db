@@ -11,16 +11,19 @@
 
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageIcon>logo.png</PackageIcon>
+    <TargetFramework>netstandard2.0</TargetFramework>    
+    <Company>Trifenix</Company>
+    <Product>Nuget Cli Example</Product>
+    <PackageTags>trifenix nuget open-source education training</PackageTags>
     <RootNamespace>trifenix_main</RootNamespace>
+    <RepositoryUrl>https://github.com/trifenix/nuget-cli-example-lib</RepositoryUrl> 
     <id>main.test</id>    
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <title>Libreria Main Trifenix</title>
     <authors>Trifenix</authors>
     <owners>trifenix</owners>
     <projectUrl>https://www.trifenix.io</projectUrl>
-    <iconUrl>https://logos.trifenix.io/logo1.png</iconUrl>
+    <iconUrl>https://nuget-cli-example.trifenix.io</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description> de ejemplo de integración continua con devops, docfx : https://nuget-cli-example.trifenix.io</description>
     <releaseNotes>Initial 0.0.1 release</releaseNotes>

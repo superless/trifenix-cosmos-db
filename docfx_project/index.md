@@ -9,4 +9,7 @@ El paquete incluye:
 6. Docker para ejecutar el programa directamente en un contenedor.
 7. archivos para ejecutar el código en vscode como contenedor.
 
+
+[github](https://github.com/trifenix/nuget-cli-example-lib)
+
 ![genkidama](https://images.trifenix.io/genkidama.gif)
