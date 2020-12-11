@@ -6,7 +6,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="images\logo.png" Pack="true" PackagePath=""/>
+    <None Include="images\logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Vsxmd" Version="1.4.35">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
 
@@ -18,16 +25,22 @@
     <PackageTags>trifenix nuget open-source education training</PackageTags>
     <RootNamespace>trifenix_main</RootNamespace>
     <RepositoryUrl>https://github.com/trifenix/nuget-cli-example-lib</RepositoryUrl> 
-    <id>main.test</id>    
+    <!-- carpeta de documentación -->
+    <id>trifenix-main</id>    
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <title>Libreria Main Trifenix</title>
     <authors>Trifenix</authors>
     <owners>trifenix</owners>
     <projectUrl>https://www.trifenix.io</projectUrl>
     <iconUrl>https://images.trifenix.io/logo.png</iconUrl>
+    <nugetUrl>https://www.nuget.org/packages/trifenix-main/</nugetUrl>
+    <devopsUrl><![CDATA[https://dev.azure.com/trifenix-connect/base-public-components/_packaging?_a=package&feed=trifenix&package=trifenix-main&protocolType=NuGet]]></devopsUrl>
+    <releaseBadgeUrl><![CDATA[https://vsrm.dev.azure.com/trifenix-connect/_apis/public/Release/badge/0e468e6a-c444-43d7-95e1-61f36d80dbd2/1/1]]></releaseBadgeUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>ejemplo de integración continua con devops, docfx : https://nuget-cli-example.trifenix.io</description>
-    <releaseNotes>Initial 0.0.1 release</releaseNotes>
+    <description>CI/CD azure devops Example, htps://connect.trifenix.io/nuget-packages/trifenix-main</description>
+    <releaseNotes>
+      First Release note
+    </releaseNotes>
     <copyright>MIT Opern Source</copyright>
     <IsPackable>true</IsPackable>
     <tags>sample nuget</tags>
@@ -36,29 +49,26 @@
           <dependency id="FontAwesome" version="4.7.0" />-->
     </dependencies>
     <PackageType>Dependency</PackageType>
-    <summary> Paquete de ejemplo de integración continua con devops, docfx : https://nuget-cli-example.trifenix.io </summary>
+    <summary>CI/CD azure devops, htps://connect.trifenix.io/nuget-packages/trifenix-main</summary>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
     </TargetsForTfmSpecificBuildOutput>
-    <DocumentationFile>main.xml</DocumentationFile>
+    <DocumentationFile>trifenix-main.xml</DocumentationFile>
+    <DocumentationDestinationFolder>nuget-packages</DocumentationDestinationFolder>
   </PropertyGroup>
 
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
     <ItemGroup>
       <!-- Filter out unnecessary files -->
-      <_ReferenceCopyLocalPaths
-        Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))" />
+      <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
       
     </ItemGroup>
 
     <!-- Print batches for debug purposes -->
-    <Message
-      Text="Batch for .nupkg: ReferenceCopyLocalPaths = @(_ReferenceCopyLocalPaths), ReferenceCopyLocalPaths.DestinationSubDirectory = %(_ReferenceCopyLocalPaths.DestinationSubDirectory) Filename = %(_ReferenceCopyLocalPaths.Filename) Extension = %(_ReferenceCopyLocalPaths.Extension)"
-      Importance="High" Condition="'@(_ReferenceCopyLocalPaths)' != ''" />
+    <Message Text="Batch for .nupkg: ReferenceCopyLocalPaths = @(_ReferenceCopyLocalPaths), ReferenceCopyLocalPaths.DestinationSubDirectory = %(_ReferenceCopyLocalPaths.DestinationSubDirectory) Filename = %(_ReferenceCopyLocalPaths.Filename) Extension = %(_ReferenceCopyLocalPaths.Extension)" Importance="High" Condition="'@(_ReferenceCopyLocalPaths)' != ''" />
 
     <ItemGroup>
       <!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
-      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)"
-        TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)" />
+      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)" />
     </ItemGroup>
   </Target>
 </Project>
