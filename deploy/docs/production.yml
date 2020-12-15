@@ -33,6 +33,9 @@ steps:
     sudo apt install -y unzip
     wget https://scripts.trifenix.io/vsxmd/Vsxmd.$(vsxmd-version-production).zip
     unzip Vsxmd.$(vsxmd-version-production).zip -d ./vsxmd
+    echo "$(folder) $(name-project)"
+    pwd
+    ls
     dotnet ./vsxmd/Vsxmd.dll ./$(folder)$(name-project).xml nuget-packages
     git config --global user.email "alejandro.iglesias@trifenix.io"
     git config --global user.name "alejandro.iglesias"    
