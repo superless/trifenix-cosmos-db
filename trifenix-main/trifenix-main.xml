@@ -4,6 +4,12 @@
         <name>trifenix-main</name>
     </assembly>
     <members>
+        <member name="T:trifenix.main.Namespace">
+             <summary>
+             Ejemplo de documentación sobre el namespace y
+             dar más detalle a la agrupación.
+            </summary>
+        </member>
         <member name="T:trifenix.main.TrifenixMain">
             <summary>
             Ejemplo de clase dispobible en trifenix
