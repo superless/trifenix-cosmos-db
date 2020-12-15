@@ -34,6 +34,8 @@ steps:
     wget https://scripts.trifenix.io/vsxmd/Vsxmd.$(vsxmd-version-production).zip
     unzip Vsxmd.$(vsxmd-version-production).zip -d ./vsxmd
     echo "$(folder) $(name-project)"
+    ls ./$(folder)
+    cat ./$(folder)/$(name-project).xml
     pwd
     ls
     dotnet ./vsxmd/Vsxmd.dll ./$(folder)$(name-project).xml nuget-packages
