@@ -12,6 +12,12 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables: 
+  BuildConfiguration: 'release'
+  # nombre del archivo csproj
+  name-project: "trifenix-main"
+
+
 steps:
 - task: DotNetCoreCLI@2
   inputs:
@@ -30,7 +36,7 @@ steps:
     sudo apt install -y unzip
     wget https://scripts.trifenix.io/vsxmd/Vsxmd.$(vsxmd-version-production).zip
     unzip Vsxmd.$(vsxmd-version-production).zip -d ./vsxmd
-    dotnet ./vsxmd/Vsxmd.dll trifenix.connect.mdm.xml nuget-packages
+    dotnet ./vsxmd/Vsxmd.dll $(name-project).xml nuget-packages
     git config --global user.email "alejandro.iglesias@trifenix.io"
     git config --global user.name "alejandro.iglesias"    
     git clone https://alejandro.iglesias:$(script-token)@github.com/trifenix/docs-trifenix-connect.git web
