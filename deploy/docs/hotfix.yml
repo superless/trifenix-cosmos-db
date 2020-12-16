@@ -20,6 +20,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
     feedsToUse: 'select'
+    vstsFeed: '$(hotfix-feed)'
 
 - task: DotNetCoreCLI@2
   inputs:

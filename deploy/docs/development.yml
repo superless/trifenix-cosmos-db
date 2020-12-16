@@ -24,6 +24,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
     feedsToUse: 'select'
+    vstsFeed: '$(draft-feed)'
 
 - task: DotNetCoreCLI@2
   inputs:
