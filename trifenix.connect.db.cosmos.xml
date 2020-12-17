@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>trifenix.connect.db.cosmos</name>
+    </assembly>
+    <members>
+        <member name="T:trifenix.connect.db.cosmos.BaseQueries">
+            <summary>
+            Consultas base para cosmosdb
+            </summary>
+        </member>
+        <member name="F:trifenix.connect.db.cosmos.BaseQueries.DbArguments">
+            <summary>
+            DbArguments queda disponible fuera de BaseQueries
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.BaseQueries.#ctor(trifenix.connect.arguments.CosmosDbArguments)">
+            <summary>
+            inicializa base queries con las conexiones a la base de dato
+            </summary>
+            <param name="dbArguments">argumentos de la base de datos</param>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.BaseQueries.SingleQuery``2(System.String,System.Object[])">
+            <summary>
+            Consulta que regresa solo un elemento de cosmos db
+            </summary>
+            <param name="query">consulta</param>
+            <param name="args">argumentos</param>
+            <typeparam name="TDOCUMENT">Tipo de elemento a obtener, debe heredar de documentBase</typeparam>
+            <typeparam name="T">Tipo de resultado</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.BaseQueries.MultipleQuery``2(System.String,System.Object[])">
+            <summary>
+            Consulta que retorna multiples elementos de un tipo
+            </summary>
+            <param name="query">consulta</param>
+            <param name="args">argumentos</param>
+            <typeparam name="TDOCUMENT">documento</typeparam>
+            <typeparam name="T">Tipo de Respuesta</typeparam>
+            <returns>Collección de resultados desde cosmosdb</returns>
+        </member>
+        <member name="T:trifenix.connect.db.cosmos.CommonDbOperations`1">
+            <summary>
+            Operaciones comunes de cosmosdb,
+            Estas operaciones son debido a que cosmonaut usa un método estático
+            para transformar un IQueryable a una lista o colección de elementos
+            este método no es posible testearlo, 
+            para poder hacerlo se ha creado esta clase.
+            </summary>
+            <typeparam name="T">Tipo de dato a operar, un objeto del model, ej : producto</typeparam>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.CommonDbOperations`1.FirstOrDefaultAsync(System.Linq.IQueryable{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Retorna el primer elemento de acuerdo a la consulta
+            </summary>
+            <param name="list">listado obtenido desde Cosmonaut</param>
+            <param name="predicate">predicado para filtrar</param>
+            <returns>Usa el método estático de Cosmonaut para retornar la lista implementada</returns>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.CommonDbOperations`1.TolistAsync(System.Linq.IQueryable{`0})">
+            <summary>
+            Retorna una colección de elementos de acuerdo a la consulta
+            </summary>
+            <param name="list">listado obtenido desde Cosmonaut</param>
+            <returns>Usa el método estático de Cosmonaut para retornar la lista implementada</returns>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.CommonDbOperations`1.WithPagination(System.Linq.IQueryable{`0},System.Int32,System.Int32)">
+            <summary>
+            Retorna una colección de elementos de acuerdo a la consulta
+            y retorna de manera páginada
+            </summary>
+            <param name="list">listado obtenido desde Cosmonaut</param>        
+            <param name="page">página a retornar</param>
+            <param name="totalElementsOnPage">total de elementos por página</param>
+            <returns></returns>
+        </member>
+        <member name="T:trifenix.connect.db.cosmos.MainGenericDb`1">
+            <summary>
+            Implementación de operaciones de base de datos cosmosDb
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:trifenix.connect.db.cosmos.MainGenericDb`1.Store">
+            <summary>
+            Store de Cosmonaut
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.MainGenericDb`1.#ctor(trifenix.connect.arguments.CosmosDbArguments)">
+            <summary>
+            Implementación de operaciones de base de datos para cosmosDb
+            </summary>
+            <param name="args">identificaciones de cosmosDb</param>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.MainGenericDb`1.CreateUpdate(`0)">
+            <summary>
+            Crea o actualiza una entidad 
+            Upsert, Añade o actualiza
+            </summary>
+            <param name="entity">entidad a guardar</param>
+            <returns>identificador de la entidad a aguardar</returns>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.MainGenericDb`1.GetEntity(System.String)">
+            <summary>
+            Obtiene una entidad desde el store
+            </summary>
+            <param name="id">identificador de la entidad</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.MainGenericDb`1.DeleteEntity(System.String)">
+            <summary>
+            Elimina una entidad de la base de datos.
+            </summary>
+            <param name="id">identificador de la entidad a eliminar</param>
+            <returns></returns>
+        </member>
+        <member name="T:trifenix.connect.db.cosmos.TimeStampDbQueries">
+            <summary>
+            Realiza consultas de timestamp directo a una entidad de cosmos db
+            todos los elementos de cosmos db mantienen la fecha
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.TimeStampDbQueries.#ctor(trifenix.connect.arguments.CosmosDbArguments)">
+            <summary>
+            Constructor con los parámetros de conexión
+            </summary>
+            <param name="args">parámetros de cosmos db</param>
+        </member>
+        <member name="M:trifenix.connect.db.cosmos.TimeStampDbQueries.GetTimestamps``1">
+            <summary>
+            Obtiene la colección de timestamps de un tipo de elemento
+            </summary>
+            <typeparam name="T">tipo de elemento</typeparam>
+            <returns>Timestamp de todos los elementos de un tipo</returns>
+        </member>
+    </members>
+</doc>
