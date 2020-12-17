@@ -12,8 +12,16 @@ namespace trifenix.connect.db.cosmos
     /// </summary>
     public class BaseQueries {
 
+
+        /// <summary>
+        /// DbArguments queda disponible fuera de BaseQueries
+        /// </summary>
         public readonly CosmosDbArguments DbArguments;
         
+        /// <summary>
+        /// inicializa base queries con las conexiones a la base de dato
+        /// </summary>
+        /// <param name="dbArguments">argumentos de la base de datos</param>
         public BaseQueries(CosmosDbArguments dbArguments) {
             DbArguments = dbArguments;
             
