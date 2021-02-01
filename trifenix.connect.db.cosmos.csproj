@@ -54,10 +54,10 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="Cosmonaut" Version="2.11.3" />
-    <PackageReference Include="trifenix.connect.graph" Version="0.8.46" />
-    <PackageReference Include="trifenix.connect.interfaces.db.cosmos" Version="0.8.48" />
-    <PackageReference Include="trifenix.connect" Version="0.8.53" />
+    
+    <PackageReference Include="trifenix.connect.graph" Version="0.8.47" />
+    <PackageReference Include="trifenix.connect.interfaces.db.cosmos" Version="0.8.50" />
+    
   </ItemGroup>
 
 
