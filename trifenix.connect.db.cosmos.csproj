@@ -55,7 +55,7 @@
 
   <ItemGroup>
     
-    <PackageReference Include="trifenix.connect.graph" Version="0.8.47" />
+    <PackageReference Include="trifenix.connect.arguments" Version="0.8.46" />
     <PackageReference Include="trifenix.connect.interfaces.db.cosmos" Version="0.8.50" />
     
   </ItemGroup>
