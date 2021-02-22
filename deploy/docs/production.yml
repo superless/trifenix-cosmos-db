@@ -16,12 +16,7 @@ variables:
   folder: ""
 
 steps:
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'AGROFENIX-cosmo'
-    scannerMode: 'MSBuild'
-    projectKey: 'AGROFENIX-cosmo'
-    projectName: 'AGROFENIX-cosmo'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -34,10 +29,6 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
   displayName: "build solution"
-
-- task: SonarQubePublish@4
-  inputs:
-    pollingTimeoutSec: '300'
 
 
 - script: |      
