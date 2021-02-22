@@ -58,7 +58,7 @@ steps:
       versioningScheme: byEnvVar 
       versionEnvVar: SemVer
   - task: SonarQubeAnalyze@4
-  - task: SonarQubePublish@4
+
     inputs:
       pollingTimeoutSec: '300'
 
