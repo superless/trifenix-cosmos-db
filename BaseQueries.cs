@@ -1,9 +1,7 @@
-﻿using Cosmonaut;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using trifenix.connect.entities.cosmos;
 using trifenix.connect.arguments;
+using trifenix.model;
 
 namespace trifenix.connect.db.cosmos
 {
@@ -36,7 +34,7 @@ namespace trifenix.connect.db.cosmos
         /// <typeparam name="TDOCUMENT">Tipo de elemento a obtener, debe heredar de documentBase</typeparam>
         /// <typeparam name="T">Tipo de resultado</typeparam>
         /// <returns></returns>
-        public async Task<T> SingleQuery<TDOCUMENT,T>(string query, params object[] args) where TDOCUMENT : DocumentBase {
+        public async Task<T> SingleQuery<TDOCUMENT,T>(string query, params object[] args) where TDOCUMENT : DocumentDb {
 
             var result = await new MainGenericDb<TDOCUMENT>(DbArguments).SingleQuery<T>(query, args);
             return result;
@@ -50,7 +48,7 @@ namespace trifenix.connect.db.cosmos
         /// <typeparam name="TDOCUMENT">documento</typeparam>
         /// <typeparam name="T">Tipo de Respuesta</typeparam>
         /// <returns>Collección de resultados desde cosmosdb</returns>
-        public async Task<IEnumerable<T>> MultipleQuery<TDOCUMENT, T>(string query, params object[] args) where TDOCUMENT : DocumentBase {
+        public async Task<IEnumerable<T>> MultipleQuery<TDOCUMENT, T>(string query, params object[] args) where TDOCUMENT : DocumentDb {
             
             
             var result = await new MainGenericDb<TDOCUMENT>(DbArguments).MultipleQuery<T>(string.Format(query, args));

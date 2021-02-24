@@ -1,11 +1,10 @@
-﻿using Cosmonaut.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using trifenix.connect.entities.cosmos;
 using trifenix.connect.interfaces.db.cosmos;
+using trifenix.model;
 
 namespace trifenix.connect.db.cosmos
 {
@@ -18,7 +17,7 @@ namespace trifenix.connect.db.cosmos
     /// para poder hacerlo se ha creado esta clase.
     /// </summary>
     /// <typeparam name="T">Tipo de dato a operar, un objeto del model, ej : producto</typeparam>
-    public class CommonDbOperations<T> : ICommonDbOperations<T> where T : DocumentBase
+    public class CommonDbOperations<T> : ICommonDbOperations<T> where T : DocumentDb
     {
         /// <summary>
         /// Retorna el primer elemento de acuerdo a la consulta

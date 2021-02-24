@@ -1,103 +1,132 @@
-﻿using Cosmonaut;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using trifenix.connect.db.cosmos.exceptions;
-using trifenix.connect.entities.cosmos;
 using trifenix.connect.interfaces.db.cosmos;
-using trifenix.connect.arguments;
+using trifenix.model;
+using trifenix.Interfaces;
+using Microsoft.Azure.Cosmos;
+using trifenix.exception;
 
 namespace trifenix.connect.db.cosmos
 {
-
     /// <summary>
-    /// Implementación de operaciones de base de datos cosmosDb
+    /// Repositorio encargado de almacenar la base de datos
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MainGenericDb<T> : IMainGenericDb<T> where T : DocumentBase {
+    public abstract class MainGenericDb<T> : IMainGenericDb<T>, IContainerContext<T> where T : DocumentDb
+    {
+        /// <summary>
+        /// Nombre del contenedor
+        /// </summary>
+        public abstract string ContainerName { get; }
 
         /// <summary>
-        /// Store de Cosmonaut
+        /// Particion
         /// </summary>
-        public ICosmosStore<T> Store { get; }
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public abstract PartitionKey ResolvePartitionKey(string name);
 
-        
-        
+        private readonly ICosmosDbContainerFactory _cosmosDbContainerFactory;
+        private readonly Microsoft.Azure.Cosmos.Container _container;
 
         /// <summary>
-        /// Implementación de operaciones de base de datos para cosmosDb
+        /// Asigna el container
         /// </summary>
-        /// <param name="args">identificaciones de cosmosDb</param>
-        public MainGenericDb(CosmosDbArguments args) {
-            var storeSettings = new CosmosStoreSettings(args.NameDb, args.EndPointUrl, args.PrimaryKey);
-            Store = new CosmosStore<T>(storeSettings);
-            
+        /// <param name="cosmosDbContainerFactory"></param>
+        public MainGenericDb(ICosmosDbContainerFactory cosmosDbContainerFactory)
+        {
+            this._cosmosDbContainerFactory = cosmosDbContainerFactory ?? throw new ArgumentNullException(nameof(ICosmosDbContainerFactory));
+            this._container = this._cosmosDbContainerFactory.GetContainer(ContainerName)._container;
         }
 
         /// <summary>
-        /// Crea o actualiza una entidad 
-        /// Upsert, Añade o actualiza
+        /// Crea o actualiza datos
         /// </summary>
-        /// <param name="entity">entidad a guardar</param>
-        /// <returns>identificador de la entidad a aguardar</returns>
-        public async Task<string> CreateUpdate(T entity) {
-
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<string> CreateUpdate(T entity)
+        {
             // el elemento a guardar debe tener un id.
             if (string.IsNullOrWhiteSpace(entity.Id))
-                throw new NonIdException<DocumentBase>(entity);
+            {
+                var result = await _container.CreateItemAsync<T>(entity, ResolvePartitionKey(entity.Id));
 
-            // inserta o actualiza.
-            var result = await Store.UpsertAsync(entity);
+                // si no tiene exito, lanza excepción.
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    throw new CustomException("Ingreso no tuvo exito");
 
-            // si no tiene exito, lanza excepción.
-            if (!result.IsSuccess)
-                throw result.Exception;
+                return result.Resource.Id;
+            }
+            else
+            {
+                // inserta o actualiza.
+                var result = await _container.UpsertItemAsync<T>(entity, ResolvePartitionKey(entity.Id));
 
-            // retorna el identificador de la entidad.
-            return result.Entity.Id;
+                // si no tiene exito, lanza excepción.
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    throw new CustomException("Ingreso no tuvo exito");
+
+                return result.Resource.Id;
+            }
         }
-
-        
 
         /// <summary>
         /// Obtiene una entidad desde el store
         /// </summary>
-        /// <param name="id">identificador de la entidad</param>
+        /// <param name="uniqueId">identificador de la entidad</param>
         /// <returns></returns>
-        public async Task<T> GetEntity(string id) => await Store.FindAsync(id);
-       
+        public async Task<T> GetEntity(string uniqueId)
+        {
+            try
+            {
+                ItemResponse<T> response = await _container.ReadItemAsync<T>(uniqueId, ResolvePartitionKey(uniqueId));
+                return response.Resource;
+            }
+            catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Elimina una entidad de la base de datos.
         /// </summary>
         /// <param name="id">identificador de la entidad a eliminar</param>
         /// <returns></returns>
-        public async Task DeleteEntity(string id) {
-            
+        public async Task DeleteEntity(string id)
+        {
+
             // elimina en la base de datos.
-            await Store.RemoveByIdAsync(id, new Microsoft.Azure.Documents.Client.RequestOptions { 
-                PartitionKey = new Microsoft.Azure.Documents.PartitionKey("CosmosEntityName")
-            });
+            await this._container.DeleteItemAsync<T>(id, ResolvePartitionKey(id));
         }
 
-
-        public async Task<T2> SingleQuery<T2>(string query, params object[] args) 
+        public Task<T2> SingleQuery<T2>(string query, params object[] args)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<T2>> MultipleQuery<T2>(string query, params object[] args)
+        {
             var result = await Store.QuerySingleAsync<T2>(string.Format(query, args));
             return result;
         }
 
-        public async Task<IEnumerable<T2>> MultipleQuery<T2>(string query, params object[] args) 
-        {
-            
-            var result = await Store.QueryMultipleAsync<T2>(string.Format(query, args));
-            return result;
-        }
+        /*
+            public async Task<T2> SingleQuery<T2>(string query, params object[] args)
+            {
 
+                var result = await Store.QuerySingleAsync<T2>(string.Format(query, args));
+                return result;
+            }
 
+            public async Task<IEnumerable<T2>> MultipleQuery<T2>(string query, params object[] args)
+            {
 
+                var result = await Store.QueryMultipleAsync<T2>(string.Format(query, args));
+                return result;
+            }
+        */
     }
-
 }

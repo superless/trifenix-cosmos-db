@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "trifenix.connect.db.cosmos", "trifenix.connect.db.cosmos.csproj", "{8664D55A-79C3-47BA-91C5-F05351D9DC9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8664D55A-79C3-47BA-91C5-F05351D9DC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8664D55A-79C3-47BA-91C5-F05351D9DC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8664D55A-79C3-47BA-91C5-F05351D9DC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8664D55A-79C3-47BA-91C5-F05351D9DC9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F236551C-8142-4810-A5D8-7FE3299723F4}
+	EndGlobalSection
+EndGlobal

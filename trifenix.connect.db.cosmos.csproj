@@ -55,7 +55,13 @@
 
   <ItemGroup>
     
-    <PackageReference Include="trifenix.connect.arguments" Version="0.8.46" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.16.0" />
+    
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    
+    <PackageReference Include="trifenix.connect" Version="0.8.85" />
+    
+    <PackageReference Include="trifenix.connect.arguments" Version="0.8.47" />
     <PackageReference Include="trifenix.connect.interfaces.db.cosmos" Version="0.8.50" />
     
   </ItemGroup>
