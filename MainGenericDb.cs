@@ -1,12 +1,12 @@
-﻿using Cosmonaut;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using trifenix.connect.db.cosmos.exceptions;
-using trifenix.connect.entities.cosmos;
 using trifenix.connect.interfaces.db.cosmos;
 using trifenix.connect.arguments;
+using trifenix.model;
+using trifenix.Interfaces;
 
 namespace trifenix.connect.db.cosmos
 {
@@ -15,16 +15,23 @@ namespace trifenix.connect.db.cosmos
     /// Implementación de operaciones de base de datos cosmosDb
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MainGenericDb<T> : IMainGenericDb<T> where T : DocumentBase {
+    public class MainGenericDb<T> : IMainGenericDb<T>, IContainerContext<T> where T : DocumentDb {
+
+        /// <summary>
+        /// Nombre de contenedor
+        /// </summary>
+        public abstract string ContainerName { get; }
 
         /// <summary>
         /// Store de Cosmonaut
         /// </summary>
         public ICosmosStore<T> Store { get; }
 
-        
-        
+        public static 
 
+
+
+        /*
         /// <summary>
         /// Implementación de operaciones de base de datos para cosmosDb
         /// </summary>
@@ -33,6 +40,19 @@ namespace trifenix.connect.db.cosmos
             var storeSettings = new CosmosStoreSettings(args.NameDb, args.EndPointUrl, args.PrimaryKey);
             Store = new CosmosStore<T>(storeSettings);
             
+        }*/
+
+        private readonly ICosmosDbContainerFactory _cosmosDbContainerFactory;
+        private readonly Microsoft.Azure.Cosmos.Container _container;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cosmosDbContainerFactory"></param>
+        public MainGenericDb(ICosmosDbContainerFactory cosmosDbContainerFactory)
+        {
+            this._cosmosDbContainerFactory = cosmosDbContainerFactory ?? throw new ArgumentNullException(nameof(ICosmosDbContainerFactory));
+            this._container = this._cosmosDbContainerFactory.GetContainer(ContainerName)._container;
         }
 
         /// <summary>
@@ -45,7 +65,7 @@ namespace trifenix.connect.db.cosmos
 
             // el elemento a guardar debe tener un id.
             if (string.IsNullOrWhiteSpace(entity.Id))
-                throw new NonIdException<DocumentBase>(entity);
+                throw new NonIdException<DocumentDb>(entity);
 
             // inserta o actualiza.
             var result = await Store.UpsertAsync(entity);
@@ -56,9 +76,7 @@ namespace trifenix.connect.db.cosmos
 
             // retorna el identificador de la entidad.
             return result.Entity.Id;
-        }
-
-        
+        }      
 
         /// <summary>
         /// Obtiene una entidad desde el store
