@@ -15,23 +15,16 @@ namespace trifenix.connect.db.cosmos
     /// Implementación de operaciones de base de datos cosmosDb
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MainGenericDb<T> : IMainGenericDb<T>, IContainerContext<T> where T : DocumentDb {
+    public abstract class MainGenericDb<T> : IMainGenericDb<T>, IContainerContext<T> where T : DocumentDb {
 
         /// <summary>
         /// Nombre de contenedor
         /// </summary>
         public abstract string ContainerName { get; }
 
-        /// <summary>
-        /// Store de Cosmonaut
-        /// </summary>
-        public ICosmosStore<T> Store { get; }
 
-        public static 
-
-
-
-        /*
+        //TODO: Consultar como utilizar las propiedades de argument segun nuevo esquema
+/*
         /// <summary>
         /// Implementación de operaciones de base de datos para cosmosDb
         /// </summary>
@@ -55,6 +48,8 @@ namespace trifenix.connect.db.cosmos
             this._container = this._cosmosDbContainerFactory.GetContainer(ContainerName)._container;
         }
 
+        //TODO: Llamar a valor de DocumentPartition
+             
         /// <summary>
         /// Crea o actualiza una entidad 
         /// Upsert, Añade o actualiza
@@ -62,6 +57,28 @@ namespace trifenix.connect.db.cosmos
         /// <param name="entity">entidad a guardar</param>
         /// <returns>identificador de la entidad a aguardar</returns>
         public async Task<string> CreateUpdate(T entity) {
+
+            /*
+            if(string.IsNullOrWhiteSpace(entity.id))
+            {
+                result = await _container.CreateItemAsync<T>(item, ResolvePartitionKey(item.Id));
+                if (!result.IsSuccess)
+                    throw result.Exception;
+                return result.Entity.Id;
+            }
+            else
+            {
+                try
+                {
+                    ItemResponse<T> result = await _container.ReadItemAsync<T>(id, ResolvePartitionKey(id));
+                    return result.Resource.Id;
+                }
+                catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                }
+            */
 
             // el elemento a guardar debe tener un id.
             if (string.IsNullOrWhiteSpace(entity.Id))
@@ -92,7 +109,11 @@ namespace trifenix.connect.db.cosmos
         /// <param name="id">identificador de la entidad a eliminar</param>
         /// <returns></returns>
         public async Task DeleteEntity(string id) {
-            
+
+            /*
+            await this._container.DeleteItemAsync<T>(id, ResolvePartitionKey(id));
+            */
+
             // elimina en la base de datos.
             await Store.RemoveByIdAsync(id, new Microsoft.Azure.Documents.Client.RequestOptions { 
                 PartitionKey = new Microsoft.Azure.Documents.PartitionKey("CosmosEntityName")
