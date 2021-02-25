@@ -7,6 +7,8 @@ using trifenix.connect.interfaces.db.cosmos;
 using trifenix.connect.arguments;
 using trifenix.model;
 using trifenix.Interfaces;
+using Microsoft.Azure.Cosmos;
+using trifenix.exception;
 
 namespace trifenix.connect.db.cosmos
 {
@@ -22,34 +24,15 @@ namespace trifenix.connect.db.cosmos
         /// </summary>
         public abstract string ContainerName { get; }
 
-
-        //TODO: Consultar como utilizar las propiedades de argument segun nuevo esquema
-/*
-        /// <summary>
-        /// Implementación de operaciones de base de datos para cosmosDb
-        /// </summary>
-        /// <param name="args">identificaciones de cosmosDb</param>
-        public MainGenericDb(CosmosDbArguments args) {
-            var storeSettings = new CosmosStoreSettings(args.NameDb, args.EndPointUrl, args.PrimaryKey);
-            Store = new CosmosStore<T>(storeSettings);
-            
-        }*/
-
-        private readonly ICosmosDbContainerFactory _cosmosDbContainerFactory;
-        private readonly Microsoft.Azure.Cosmos.Container _container;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cosmosDbContainerFactory"></param>
-        public MainGenericDb(ICosmosDbContainerFactory cosmosDbContainerFactory)
+        public MainGenericDb(CosmosDbArguments args)
         {
-            this._cosmosDbContainerFactory = cosmosDbContainerFactory ?? throw new ArgumentNullException(nameof(ICosmosDbContainerFactory));
-            this._container = this._cosmosDbContainerFactory.GetContainer(ContainerName)._container;
+            Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(args.EndPointUrl, args.PrimaryKey);
+            var cosmosDbClientFactory = new CosmosDbContainerFactory(client, args.NameDb, args.ContainersName);
+
         }
 
-        //TODO: Llamar a valor de DocumentPartition
-             
+        private readonly Microsoft.Azure.Cosmos.Container _container;
+
         /// <summary>
         /// Crea o actualiza una entidad 
         /// Upsert, Añade o actualiza
@@ -57,42 +40,29 @@ namespace trifenix.connect.db.cosmos
         /// <param name="entity">entidad a guardar</param>
         /// <returns>identificador de la entidad a aguardar</returns>
         public async Task<string> CreateUpdate(T entity) {
-
-            /*
-            if(string.IsNullOrWhiteSpace(entity.id))
+         
+            if(string.IsNullOrWhiteSpace(entity.Id))
             {
-                result = await _container.CreateItemAsync<T>(item, ResolvePartitionKey(item.Id));
-                if (!result.IsSuccess)
-                    throw result.Exception;
-                return result.Entity.Id;
+
+                var result = await _container.CreateItemAsync<T>(entity, new PartitionKey(entity.DocumentPartition));
+                if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new CustomException("No se pudo ingresar id");
+                }
+                return result.Resource.Id;
             }
             else
             {
                 try
                 {
-                    ItemResponse<T> result = await _container.ReadItemAsync<T>(id, ResolvePartitionKey(id));
+                    ItemResponse<T> result = await _container.UpsertItemAsync<T>(entity, new PartitionKey(entity.DocumentPartition));
                     return result.Resource.Id;
                 }
                 catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
                     return null;
                 }
-                }
-            */
-
-            // el elemento a guardar debe tener un id.
-            if (string.IsNullOrWhiteSpace(entity.Id))
-                throw new NonIdException<DocumentDb>(entity);
-
-            // inserta o actualiza.
-            var result = await Store.UpsertAsync(entity);
-
-            // si no tiene exito, lanza excepción.
-            if (!result.IsSuccess)
-                throw result.Exception;
-
-            // retorna el identificador de la entidad.
-            return result.Entity.Id;
+            }
         }      
 
         /// <summary>
@@ -100,7 +70,11 @@ namespace trifenix.connect.db.cosmos
         /// </summary>
         /// <param name="id">identificador de la entidad</param>
         /// <returns></returns>
-        public async Task<T> GetEntity(string id) => await Store.FindAsync(id);
+        public async Task<T> GetEntity(string id)
+        {
+            ItemResponse<T> result = await _container.ReadItemAsync<T>(id, new PartitionKey(id));
+            return result.Resource;
+        }
        
 
         /// <summary>
@@ -108,30 +82,29 @@ namespace trifenix.connect.db.cosmos
         /// </summary>
         /// <param name="id">identificador de la entidad a eliminar</param>
         /// <returns></returns>
-        public async Task DeleteEntity(string id) {
-
-            /*
-            await this._container.DeleteItemAsync<T>(id, ResolvePartitionKey(id));
-            */
-
-            // elimina en la base de datos.
-            await Store.RemoveByIdAsync(id, new Microsoft.Azure.Documents.Client.RequestOptions { 
-                PartitionKey = new Microsoft.Azure.Documents.PartitionKey("CosmosEntityName")
-            });
+        public async Task DeleteEntity(string id) 
+        {
+            await this._container.DeleteItemAsync<T>(id, new PartitionKey(id));
         }
 
 
-        public async Task<T2> SingleQuery<T2>(string query, params object[] args) 
+        public async Task<T2> SingleQuery<T2>(string queryString, params object[] args) 
         {
-            
-            var result = await Store.QuerySingleAsync<T2>(string.Format(query, args));
+            //TODO: Revisar para una sola Query
+            var query = _container.GetItemQueryIterator<T2>(new QueryDefinition(string.Format(queryString, args)));
             return result;
         }
 
-        public async Task<IEnumerable<T2>> MultipleQuery<T2>(string query, params object[] args) 
+        public async Task<IEnumerable<T2>> MultipleQuery<T2>(string queryString, params object[] args) 
         {
             
-            var result = await Store.QueryMultipleAsync<T2>(string.Format(query, args));
+            var query = _container.GetItemQueryIterator<T2>(new QueryDefinition(string.Format(queryString, args)));
+            List<T2> result = new List<T2>();
+            while(query.HasMoreResults)
+            {
+                var response = await query.ReadNextAsync();
+                result.AddRange(response.ToList());
+            }
             return result;
         }
 
