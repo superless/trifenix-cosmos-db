@@ -57,7 +57,7 @@
     
     <PackageReference Include="Cosmonaut" Version="2.11.3" />
     
-    <PackageReference Include="trifenix.connect.arguments" Version="0.8.46" />
+    <PackageReference Include="trifenix.connect.arguments" Version="0.8.48" />
     
     <PackageReference Include="trifenix.connect.interfaces" Version="0.8.16" />
     
