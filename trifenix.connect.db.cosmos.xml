@@ -57,23 +57,6 @@
             Excepción de validación con una colección de los errores.
             </summary>
         </member>
-        <member name="T:trifenix.connect.db.cosmos.exceptions.NonIdException`1">
-            <summary>
-            Excepción lanzada cuando no existe id.
-            </summary>
-            <typeparam name="T">Tipo de elemento que lanza el error</typeparam>
-        </member>
-        <member name="T:trifenix.connect.db.cosmos.exceptions.BaseException`1">
-            <summary>
-            Excepción base.
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="T:trifenix.connect.db.cosmos.exceptions.Validation_Exception">
-            <summary>
-            Excepción de validación con una colección de los errores.
-            </summary>
-        </member>
         <member name="T:trifenix.connect.db.cosmos.MainGenericDb`1">
             <summary>
             Implementación de operaciones de base de datos cosmosDb

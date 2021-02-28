@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Cosmonaut;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-<<<<<<< HEAD
 using trifenix.connect.arguments;
 using trifenix.connect.interfaces.db;
 using trifenix.connect.db.model;
-=======
-using trifenix.connect.interfaces.db.cosmos;
-using trifenix.connect.arguments;
->>>>>>> master
 using trifenix.model;
 
 namespace trifenix.connect.db.cosmos
@@ -36,11 +32,8 @@ namespace trifenix.connect.db.cosmos
         /// <typeparam name="T">tipo de elemento</typeparam>
         /// <returns>Timestamp de todos los elementos de un tipo</returns>
         public async Task<long[]> GetTimestamps<T>() where T : DocumentDb {
-<<<<<<< HEAD
 
 
-=======
->>>>>>> master
             var store = new CosmosStore<T>(StoreSettings);
             var result = await store.QueryMultipleAsync<long>("SELECT value c._ts FROM c");
             if (result == null)
