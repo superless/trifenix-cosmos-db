@@ -1,12 +1,10 @@
 ﻿using Cosmonaut;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using trifenix.connect.db.cosmos.exceptions;
-using trifenix.connect.entities.cosmos;
-using trifenix.connect.interfaces.db.cosmos;
 using trifenix.connect.arguments;
+using trifenix.model;
+using trifenix.connect.interfaces.db;
 
 namespace trifenix.connect.db.cosmos
 {
@@ -15,7 +13,7 @@ namespace trifenix.connect.db.cosmos
     /// Implementación de operaciones de base de datos cosmosDb
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MainGenericDb<T> : IMainGenericDb<T> where T : DocumentBase {
+    public class MainGenericDb<T> : IMainGenericDb<T> where T : DocumentDb {
 
         /// <summary>
         /// Store de Cosmonaut
@@ -45,7 +43,7 @@ namespace trifenix.connect.db.cosmos
 
             // el elemento a guardar debe tener un id.
             if (string.IsNullOrWhiteSpace(entity.Id))
-                throw new NonIdException<DocumentBase>(entity);
+                throw new NonIdException<DocumentDb>(entity);
 
             // inserta o actualiza.
             var result = await Store.UpsertAsync(entity);

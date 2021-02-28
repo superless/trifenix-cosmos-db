@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using trifenix.connect.interfaces.db.cosmos;
-using trifenix.connect.entities.cosmos;
 using trifenix.connect.arguments;
+using trifenix.connect.interfaces.db;
+using trifenix.connect.db.model;
+using trifenix.model;
+
 namespace trifenix.connect.db.cosmos
 {
 
@@ -29,7 +31,9 @@ namespace trifenix.connect.db.cosmos
         /// </summary>
         /// <typeparam name="T">tipo de elemento</typeparam>
         /// <returns>Timestamp de todos los elementos de un tipo</returns>
-        public async Task<long[]> GetTimestamps<T>() where T : DocumentBase {
+        public async Task<long[]> GetTimestamps<T>() where T : DocumentDb {
+
+
             var store = new CosmosStore<T>(StoreSettings);
             var result = await store.QueryMultipleAsync<long>("SELECT value c._ts FROM c");
             if (result == null)

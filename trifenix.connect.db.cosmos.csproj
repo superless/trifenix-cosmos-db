@@ -55,8 +55,11 @@
 
   <ItemGroup>
     
+    <PackageReference Include="Cosmonaut" Version="2.11.3" />
+    
     <PackageReference Include="trifenix.connect.arguments" Version="0.8.46" />
-    <PackageReference Include="trifenix.connect.interfaces.db.cosmos" Version="0.8.50" />
+    
+    <PackageReference Include="trifenix.connect.interfaces" Version="0.8.16" />
     
   </ItemGroup>
 

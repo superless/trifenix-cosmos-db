@@ -1,6 +1,6 @@
 ﻿using System;
-using trifenix.connect.entities.cosmos;
 
+using trifenix.model;
 
 namespace trifenix.connect.db.cosmos.exceptions {
 
@@ -8,7 +8,7 @@ namespace trifenix.connect.db.cosmos.exceptions {
     /// Excepción lanzada cuando no existe id.
     /// </summary>
     /// <typeparam name="T">Tipo de elemento que lanza el error</typeparam>
-    public class NonIdException<T> : BaseException<T> where T:DocumentBase {
+    public class NonIdException<T> : BaseException<T> where T:DocumentDb {
         public NonIdException(T docBase) : base(docBase) { }
 
         public override string Message => $"el elemento de tipo {DbObject.GetType()} no  tiene id";
@@ -19,7 +19,7 @@ namespace trifenix.connect.db.cosmos.exceptions {
     /// Excepción base.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BaseException<T> : Exception where T:DocumentBase {
+    public abstract class BaseException<T> : Exception where T:DocumentDb {
         public BaseException(T docBase) {
             DbObject = docBase;
         }

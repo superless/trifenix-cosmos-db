@@ -40,40 +40,22 @@
             <typeparam name="T">Tipo de Respuesta</typeparam>
             <returns>Collección de resultados desde cosmosdb</returns>
         </member>
-        <member name="T:trifenix.connect.db.cosmos.CommonDbOperations`1">
+        <member name="T:trifenix.connect.db.cosmos.exceptions.NonIdException`1">
             <summary>
-            Operaciones comunes de cosmosdb,
-            Estas operaciones son debido a que cosmonaut usa un método estático
-            para transformar un IQueryable a una lista o colección de elementos
-            este método no es posible testearlo, 
-            para poder hacerlo se ha creado esta clase.
+            Excepción lanzada cuando no existe id.
             </summary>
-            <typeparam name="T">Tipo de dato a operar, un objeto del model, ej : producto</typeparam>
+            <typeparam name="T">Tipo de elemento que lanza el error</typeparam>
         </member>
-        <member name="M:trifenix.connect.db.cosmos.CommonDbOperations`1.FirstOrDefaultAsync(System.Linq.IQueryable{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="T:trifenix.connect.db.cosmos.exceptions.BaseException`1">
             <summary>
-            Retorna el primer elemento de acuerdo a la consulta
+            Excepción base.
             </summary>
-            <param name="list">listado obtenido desde Cosmonaut</param>
-            <param name="predicate">predicado para filtrar</param>
-            <returns>Usa el método estático de Cosmonaut para retornar la lista implementada</returns>
+            <typeparam name="T"></typeparam>
         </member>
-        <member name="M:trifenix.connect.db.cosmos.CommonDbOperations`1.TolistAsync(System.Linq.IQueryable{`0})">
+        <member name="T:trifenix.connect.db.cosmos.exceptions.Validation_Exception">
             <summary>
-            Retorna una colección de elementos de acuerdo a la consulta
+            Excepción de validación con una colección de los errores.
             </summary>
-            <param name="list">listado obtenido desde Cosmonaut</param>
-            <returns>Usa el método estático de Cosmonaut para retornar la lista implementada</returns>
-        </member>
-        <member name="M:trifenix.connect.db.cosmos.CommonDbOperations`1.WithPagination(System.Linq.IQueryable{`0},System.Int32,System.Int32)">
-            <summary>
-            Retorna una colección de elementos de acuerdo a la consulta
-            y retorna de manera páginada
-            </summary>
-            <param name="list">listado obtenido desde Cosmonaut</param>        
-            <param name="page">página a retornar</param>
-            <param name="totalElementsOnPage">total de elementos por página</param>
-            <returns></returns>
         </member>
         <member name="T:trifenix.connect.db.cosmos.MainGenericDb`1">
             <summary>
@@ -132,6 +114,23 @@
             </summary>
             <typeparam name="T">tipo de elemento</typeparam>
             <returns>Timestamp de todos los elementos de un tipo</returns>
+        </member>
+        <member name="T:trifenix.connect.db.model.DocumentBase">
+            <summary>
+            Entidad base para modelos de bases de datos basados en cosmonaut.
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.db.model.DocumentBase.CosmosEntityName">
+            <summary>
+            Partición dentro de base de datos documental,
+            esto permite a través de un indice particionar un segmento del indice de la base de datos
+            por nombre de la entidad o nombre de la clase.
+            </summary>        
+        </member>
+        <member name="M:trifenix.connect.db.model.DocumentBase.#ctor">
+            <summary>
+            Asigna el nombre de la clase como partición.
+            </summary>
         </member>
     </members>
 </doc>
