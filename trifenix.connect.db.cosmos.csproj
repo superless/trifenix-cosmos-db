@@ -55,11 +55,20 @@
 
   <ItemGroup>
     
+<<<<<<< HEAD
     <PackageReference Include="Cosmonaut" Version="2.11.3" />
     
     <PackageReference Include="trifenix.connect.arguments" Version="0.8.46" />
     
     <PackageReference Include="trifenix.connect.interfaces" Version="0.8.16" />
+=======
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.16.0" />
+    
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    
+    <PackageReference Include="trifenix.connect.arguments" Version="0.8.48" />
+    <PackageReference Include="trifenix.connect.interfaces.db.cosmos" Version="0.8.53" />
+>>>>>>> master
     
   </ItemGroup>
 
