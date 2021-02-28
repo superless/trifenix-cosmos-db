@@ -35,6 +35,7 @@ steps:
         $currentVersion = trifenix-versions update $(trifenix-versions) --token $(script-token) --user $(user) --email $(email) --branch $(branch) --name $(name-project) --ktype nuget --build $(Build.BuildId)        
         $setVersion = '##vso[task.setvariable variable=version;]' + $currentVersion
         Write-Host $setVersion
+        echo $(version)
     displayName: generando variable version con TRIFENIX VERSIONS
 
 
@@ -54,9 +55,9 @@ steps:
   - task: DotNetCoreCLI@2
     inputs:
       command: 'restore'
-      projects: '**/*.csproj'
+      projects: '$(name-project).csproj'
       feedsToUse: 'select'
-      vstsFeed: '$(default-feed)'      
+      vstsFeed: '$(default-feed)'
       versioningScheme: byBuildNumber
     displayName: restore dotnet
 
