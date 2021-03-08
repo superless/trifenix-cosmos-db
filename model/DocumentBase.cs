@@ -1,5 +1,5 @@
 ﻿using Cosmonaut.Attributes;
-using trifenix.model;
+using trifenix.connect.model;
 
 namespace trifenix.connect.db.model
 {

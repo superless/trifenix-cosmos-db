@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using trifenix.connect.arguments;
 using trifenix.connect.interfaces.db;
-using trifenix.connect.db.model;
-using trifenix.model;
+using trifenix.connect.model;
 
 namespace trifenix.connect.db.cosmos
 {

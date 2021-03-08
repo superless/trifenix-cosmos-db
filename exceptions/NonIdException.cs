@@ -1,8 +1,8 @@
 ﻿using System;
+using trifenix.connect.model;
 
-using trifenix.model;
-
-namespace trifenix.connect.db.cosmos.exceptions {
+namespace trifenix.connect.db.cosmos.exceptions
+{
 
     /// <summary>
     /// Excepción lanzada cuando no existe id.

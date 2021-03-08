@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using trifenix.connect.db.cosmos.exceptions;
 using trifenix.connect.arguments;
-using trifenix.model;
 using trifenix.connect.interfaces.db;
+using trifenix.connect.model;
 
 namespace trifenix.connect.db.cosmos
 {
