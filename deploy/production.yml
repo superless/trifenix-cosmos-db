@@ -71,7 +71,7 @@ steps:
   # - task: SonarQubeAnalyze@4
   # - task: SonarQubePublish@4
   #   inputs:
-      pollingTimeoutSec: '300'
+  #    pollingTimeoutSec: '300'
   # publica paquete para publicar.
   - task: PublishBuildArtifacts@1
     inputs:
